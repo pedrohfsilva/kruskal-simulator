@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Simulador de Conexão de Comunidades (Algoritmo de Kruskal)
 
-## Getting Started
+Este projeto é uma aplicação web interativa desenvolvida para demonstrar a aplicação prática de **Algoritmos Avançados** em problemas de interesse público.
 
-First, run the development server:
+O objetivo é simular o planejamento de uma rede de infraestrutura (como internet, água ou energia elétrica) que precisa conectar diversas comunidades rurais com o **menor custo possível**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🎯 O Problema
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Uma prefeitura precisa conectar várias comunidades isoladas. Cada conexão possível (cabo, tubulação) tem um custo associado à distância ou dificuldade do terreno. O desafio é encontrar um subconjunto de conexões que:
+1. Conecte **todas** as comunidades.
+2. Tenha o **custo total mínimo**.
+3. Não crie ciclos (caminhos redundantes desnecessários).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Este é um problema clássico de **Árvore Geradora Mínima (Minimum Spanning Tree - MST)**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧠 O Algoritmo de Kruskal
 
-## Learn More
+Para resolver este problema, utilizamos o **Algoritmo de Kruskal**. Ele é um algoritmo "guloso" (greedy) que funciona da seguinte maneira:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Ordenar**: Lista todas as conexões possíveis da mais barata para a mais cara.
+2. **Iterar**: Percorre a lista ordenada, selecionando a conexão de menor custo.
+3. **Verificar Ciclos**:
+   - Se a conexão une duas comunidades que ainda não estão conectadas (direta ou indiretamente), ela é **aceita**.
+   - Se as comunidades já estão conectadas, a conexão criaria um ciclo e é **descartada**.
+4. **Finalizar**: O processo para quando todas as comunidades estiverem interligadas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para verificar a conectividade e evitar ciclos de forma eficiente, utilizamos a estrutura de dados **Union-Find**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✨ Funcionalidades do Projeto
 
-## Deploy on Vercel
+- **Simulador Interativo**: Visualização gráfica de comunidades (nós) e conexões (arestas).
+- **Modo Manual**: O usuário pode tentar conectar as comunidades manualmente para ver quanto gastaria "na intuição".
+- **Modo Automático**: O algoritmo de Kruskal roda passo a passo, mostrando visualmente as decisões tomadas (arestas aceitas em verde, rejeitadas em vermelho).
+- **Comparação de Custos**: Exibe a economia gerada pelo algoritmo em comparação com a solução manual.
+- **Geração de Cenários**: Criação de mapas aleatórios com diferentes números de comunidades.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Como Executar
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Este projeto foi desenvolvido com **Next.js**, **TypeScript** e **Tailwind CSS**.
+
+### Pré-requisitos
+
+- Node.js instalado (versão 18 ou superior recomendada).
+
+### Passo a Passo
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/pedrohfsilva/kruskal-simulator.git
+   cd kruskal-simulator
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
+
+3. Execute o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   ```
+
+4. Abra o navegador e acesse:
+   [http://localhost:3000](http://localhost:3000)
+
+## 🛠️ Tecnologias Utilizadas
+
+- **[Next.js 15](https://nextjs.org/)**: Framework React para a aplicação web.
+- **[Tailwind CSS](https://tailwindcss.com/)**: Estilização moderna e responsiva.
+- **TypeScript**: Tipagem estática para maior segurança no código.
+- **React**: Biblioteca para construção da interface do usuário.
+
+---
+Desenvolvido para fins educacionais na disciplina de Algoritmos Avançados.
